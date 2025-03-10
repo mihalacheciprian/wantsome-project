@@ -65,9 +65,8 @@ export function ProductList() {
                   {product.price} RON (Discount: {product.discountPercentage}%)
                 </Typography>
                 <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
-                  <StarIcon color="warning" />
                   <Typography variant="body2" sx={{ ml: 0.5 }}>
-                    {/* {product.rating} ({product.reviews.length} reviews) */}
+                    Review Score - {product.rating} <StarIcon color="warning" />
                   </Typography>
                 </Box>
                 {product.stock < 10 && (
