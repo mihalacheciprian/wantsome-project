@@ -1,13 +1,12 @@
+import { Routes } from "react-router"
+import ProductList from "./pages/ProductList"
+import { Route } from "react-router"
 
-import PageProducts from './PageProducts'
-
-function App() {
-
-  return (
-    <>
-      <PageProducts/>
-    </>
+export default function App() {
+ return (
+    <Routes>
+      <Route path="/"element ={<ProductList/>} />
+    </Routes>
   )
 }
 
-export default App
