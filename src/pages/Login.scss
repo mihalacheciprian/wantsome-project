@@ -1,0 +1,11 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 100px auto;
+
+  & > * {
+    display: flex !important;
+    margin-top: 2rem !important;
+  }
+}
