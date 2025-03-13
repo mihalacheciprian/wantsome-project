@@ -6,14 +6,17 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { Login } from "./pages/Login.tsx";
 import { RequireAuth } from "./components/RequireAuth.tsx";
 import "./index.scss";
+import ProfilePage from "./components/ProfilePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="login" element={<Login />}></Route>
-        <Route path="*" element={<p> Route not found </p>}></Route>
-        <Route element={<RequireAuth />}></Route>
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<p> Route not found </p>} />
+        <Route element={<RequireAuth />}>
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </Provider>

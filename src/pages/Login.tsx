@@ -34,7 +34,7 @@ export function Login() {
     try {
       const userData = await login({ ...user }).unwrap();
       dispatch(setCredentials({ ...userData }));
-      navigate("/me");
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,7 @@ export function Login() {
           <Input name="password" onChange={setUserCredentials} />
         </FormControl>
 
-        <Button type="submit">
+        <Button type="submit" variant="contained" color="primary">
           {isLoading ? <CircularProgress /> : "Login"}
         </Button>
       </form>
