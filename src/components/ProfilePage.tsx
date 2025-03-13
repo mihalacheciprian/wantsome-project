@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, CardContent, Avatar, Button } from "@mui/material";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "../features/hooks";
+import { logOut } from "../features/authSlice";
 
 interface User {
   firstName: string;
@@ -24,14 +27,11 @@ interface User {
 const ProfilePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const userId = localStorage.getItem("userId");
+  console.log(userId);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token || !userId) {
-      window.location.href = "/login";
-      return;
-    }
-
     fetch(`https://dummyjson.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -62,7 +62,7 @@ const ProfilePage: React.FC = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               marginBottom: "16px",
             }}
           >
@@ -117,9 +117,9 @@ const ProfilePage: React.FC = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("userId");
-              window.location.href = "/login";
+              console.log("Logout clicked");
+              dispatch(logOut());
+              navigate("/login");
             }}
           >
             Log Out
