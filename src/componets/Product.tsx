@@ -24,13 +24,15 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const imagePlaceholder = "https://via.placeholder.com/200";
+
   return (
     <Grid item key={product.id} xs={12} sm={6} md={3}>
       <Card key={product.id} sx={{ maxWidth: 300, m: 2, boxShadow: 3 }}>
         <CardMedia
           component="img"
           height="200"
-          image={product.images[0] || "https://via.placeholder.com/200"}
+          image={product.images[0] || imagePlaceholder}
           alt={product.title}
         />
         <CardContent>
