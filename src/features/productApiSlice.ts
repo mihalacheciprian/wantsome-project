@@ -23,10 +23,10 @@ interface QueryString {
   limit: number;
   skip: number;
 }
-const url = "https://dummyjson.com/products"
+
 export const productApiSlice = createApi({
   reducerPath: "products",
-  baseQuery: fetchBaseQuery({ baseUrl: url  }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/products" }),
 
   endpoints: (builder) => ({
     getProducts: builder.query<ProductResponse, QueryString>({
