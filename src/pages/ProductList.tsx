@@ -20,6 +20,40 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token =
+      localStorage.getItem("accessToken") ||
+      sessionStorage.getItem("accessToken") ||
+      localStorage.getItem("refreshToken") ||
+      sessionStorage.getItem("refreshToken");
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      setSavedUser(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!savedUser) return;
+
+    setLoading(true);
+    fetch("https://dummyjson.com/user/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${savedUser}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data2) => setUserData(data2))
+      .finally(() => setLoading(false));
+  }, [savedUser]);
+
+  if (userData?.role == "admin") {
+    navigate("/users");
+  }
+
   const [page, setPage] = useState(1);
   const limit = 12;
   const skip = (page - 1) * limit;
