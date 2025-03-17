@@ -1,12 +1,25 @@
 import Pagination from "@mui/material/Pagination";
-import { getProducts } from "../state/productApiSlice";
-import { useState } from "react";
+import { getProducts } from "../features/productApiSlice";
+import { useEffect, useState } from "react";
 import Product from "../componets/Product";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductList() {
+  type UserData = {
+    role: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  };
+
+  const [savedUser, setSavedUser] = useState("");
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [page, setPage] = useState(1);
   const limit = 12;
   const skip = (page - 1) * limit;
