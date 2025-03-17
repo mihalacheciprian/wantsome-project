@@ -11,6 +11,7 @@ export interface User {
 }
 
 export interface AuthState {
+  id: User;
   user: User;
   accessToken: string;
   refreshToken: string;
@@ -23,18 +24,23 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { accessToken, refreshToken, ...user } = action.payload;
+      const { id, accessToken, refreshToken, ...user } = action.payload;
+      state.id = id;
       state.user = user;
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
-
+      localStorage.setItem("userId", id);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
     },
     logOut: (state) => {
-      state.user = {} as User;
-      state.accessToken = "";
-      state.refreshToken = "";
+      state.id = undefined;
+      state.user = undefined;
+      state.accessToken = undefined;
+      state.refreshToken = undefined;
+      localStorage.removeItem("userId");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     },
   },
 });
